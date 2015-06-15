@@ -1,0 +1,14 @@
+#Find the day of the month
+day=`date +"%d"`
+
+#Find out if its even or odd
+rem=$(($day % 2))
+
+#If even then set prompt to burger emoji
+#Else set to pizza
+if [ $rem -eq 0 ]
+then
+        PS1="[\u@\h \W]\🍔 "
+else
+        PS1="[\u@\h \W]\🍕 "
+fi
