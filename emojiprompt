@@ -1,14 +1,50 @@
-#Find the day of the month
-day=`date +"%d"`
+ico=""
+white="\e[0m"
+red="\e[0;31m"
+blue="\e[1;34m"
+green="\e[0;32m"
+orange="\e[0;33m"
+purple="\e[0;35m"
+yellow="\e[1;33m"
 
-#Find out if its even or odd
-rem=$(($day % 2))
+colorPri=$white
+colorSec=$white
+colorTer=$white
 
-#If even then set prompt to burger emoji
-#Else set to pizza
-if [ $rem -eq 0 ]
+#holidays
+if [ $month -eq 12 ] && ([ $day -eq 24 ] || [ $day -eq 25 ])
 then
-        PS1="[\u@\h \W]\🍔 "
+	ico="🎄"
+	colorPri=$red
+	colorSec=$green
+elif [ $month -eq 10 ] && [ $day -eq 31 ]
+then
+	ico="🎃"
+	colorPri=$orange
+	colorSec=$orange
+	colorTer=$orange
+elif [ $month -eq 7 ] && [ $day -eq 4 ]
+then
+	ico="⚐"
+	colorPri=$red
+	colorTer=$blue
+elif [ $month -eq 1 ] && [ $day -eq 1 ]
+then
+	ico=""
+elif [ $month -eq 4 ] && [ $day -eq 20 ]
+then
+	ico="🍁"
+	colorPri=$green
+	colorSec=$green
+	colorTer=$green
 else
-        PS1="[\u@\h \W]\🍕 "
+	rem=$(($day % 2))
+	if [ $rem -eq 0 ]
+	then
+		ico="🍔"
+	else
+		ico="🍕"
+	fi
 fi
+
+PS1="\[$colorPri\][\u\[$colorSec\]@\h\[$colorTer\] \w]$ico$ \[$white\]"
