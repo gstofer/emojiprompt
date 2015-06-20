@@ -1,4 +1,7 @@
+#the unicode "icon" we'll be displaying
 ico=""
+
+#different available colors for altering the host/path text
 white="\e[0m"
 red="\e[0;31m"
 blue="\e[1;34m"
@@ -7,36 +10,47 @@ orange="\e[0;33m"
 purple="\e[0;35m"
 yellow="\e[1;33m"
 
+#set default colors to white
+#primary color -- used for user
 colorPri=$white
+#secondary color -- used for hostname
 colorSec=$white
+#tertiary color -- used for folder path
 colorTer=$white
 
 #holidays
+#Christmas
 if [ $month -eq 12 ] && ([ $day -eq 24 ] || [ $day -eq 25 ])
 then
 	ico="🎄"
 	colorPri=$red
 	colorSec=$green
+#Halloween
 elif [ $month -eq 10 ] && [ $day -eq 31 ]
 then
 	ico="🎃"
 	colorPri=$orange
 	colorSec=$orange
 	colorTer=$orange
+#Independence Day
 elif [ $month -eq 7 ] && [ $day -eq 4 ]
 then
 	ico="⚐"
 	colorPri=$red
 	colorTer=$blue
+#New Year's Day
 elif [ $month -eq 1 ] && [ $day -eq 1 ]
 then
 	ico=""
+#420 420 420 420 420 420
 elif [ $month -eq 4 ] && [ $day -eq 20 ]
 then
 	ico="🍁"
 	colorPri=$green
 	colorSec=$green
 	colorTer=$green
+#default case -- if it's not any of the holidays above,
+#swap between burger and pizza each day.
 else
 	rem=$(($day % 2))
 	if [ $rem -eq 0 ]
@@ -47,4 +61,7 @@ else
 	fi
 fi
 
+#change the prompt to display:
+#[userName@hostname current/path] icon$
+#with defined colors
 PS1="\[$colorPri\][\u\[$colorSec\]@\h\[$colorTer\] \w]$ico$ \[$white\]"
